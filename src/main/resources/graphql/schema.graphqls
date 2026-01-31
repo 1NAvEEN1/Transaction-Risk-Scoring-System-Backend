@@ -1,0 +1,72 @@
+type Query {
+    transactions(page: Int, size: Int, status: String): TransactionPage!
+    transaction(id: ID!): Transaction!
+    riskRules: [RiskRule!]!
+}
+
+type Mutation {
+    submitTransaction(input: TransactionInput!): Transaction!
+    createRiskRule(input: RiskRuleInput!): RiskRule!
+    updateRiskRule(id: ID!, input: RiskRuleInput!): RiskRule!
+}
+
+type TransactionPage {
+    content: [Transaction]
+    page: Int!
+    size: Int!
+    totalElements: Int!
+    totalPages: Int!
+}
+
+type Transaction {
+    id: ID!
+    customerId: ID!
+    customerName: String!
+    amount: Float!
+    currency: String!
+    timestamp: String!
+    merchantCategory: String!
+    riskScore: Int!
+    status: String!
+    matchedRules: [MatchedRule!]!
+}
+
+type MatchedRule {
+    ruleId: ID!
+    ruleName: String!
+    ruleType: String!
+    points: Int!
+    reason: String!
+}
+
+type RiskRule {
+    id: ID!
+    ruleName: String!
+    ruleType: String!
+    amountThreshold: Float
+    merchantCategory: String
+    frequencyCount: Int
+    frequencyWindowMinutes: Int
+    riskPoints: Int!
+    active: Boolean!
+}
+
+input TransactionInput {
+    customerId: ID!
+    amount: Float!
+    currency: String!
+    timestamp: String!
+    merchantCategory: String!
+}
+
+input RiskRuleInput {
+    ruleName: String!
+    ruleType: String!
+    amountThreshold: Float
+    merchantCategory: String
+    frequencyCount: Int
+    frequencyWindowMinutes: Int
+    riskPoints: Int!
+    active: Boolean!
+}
+
