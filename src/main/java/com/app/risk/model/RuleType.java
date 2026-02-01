@@ -1,4 +1,4 @@
-package com.app.risk.rule;
+package com.app.risk.model;
 
 public enum RuleType {
     AMOUNT_THRESHOLD,

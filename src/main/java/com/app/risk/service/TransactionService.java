@@ -1,7 +1,5 @@
-package com.app.risk.transaction;
+package com.app.risk.service;
 
-import com.app.risk.customer.Customer;
-import com.app.risk.customer.CustomerService;
 import com.app.risk.dto.MatchedRule;
 import com.app.risk.dto.TransactionDTO;
 import com.app.risk.dto.TransactionInput;
@@ -9,8 +7,8 @@ import com.app.risk.dto.TransactionPage;
 import com.app.risk.engine.RiskRuleEvaluator;
 import com.app.risk.exception.BadRequestException;
 import com.app.risk.exception.NotFoundException;
-import com.app.risk.rule.RiskRule;
-import com.app.risk.rule.RiskRuleService;
+import com.app.risk.model.*;
+import com.app.risk.repository.TransactionRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

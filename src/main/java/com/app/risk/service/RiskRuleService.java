@@ -1,10 +1,13 @@
-package com.app.risk.rule;
+package com.app.risk.service;
 
 import com.app.risk.dto.RiskRuleDTO;
 import com.app.risk.dto.RiskRuleInput;
 import com.app.risk.exception.BadRequestException;
 import com.app.risk.exception.NotFoundException;
-import com.app.risk.transaction.MerchantCategory;
+import com.app.risk.model.MerchantCategory;
+import com.app.risk.model.RiskRule;
+import com.app.risk.model.RuleType;
+import com.app.risk.repository.RiskRuleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

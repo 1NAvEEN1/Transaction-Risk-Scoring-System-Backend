@@ -1,4 +1,4 @@
-package com.app.risk.customer;
+package com.app.risk.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;

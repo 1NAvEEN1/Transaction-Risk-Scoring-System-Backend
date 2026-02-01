@@ -1,8 +1,9 @@
-package com.app.risk.transaction;
+package com.app.risk.controller;
 
 import com.app.risk.dto.TransactionDTO;
 import com.app.risk.dto.TransactionInput;
 import com.app.risk.dto.TransactionPage;
+import com.app.risk.service.TransactionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 @RequiredArgsConstructor
-public class TransactionResolver {
+public class TransactionController {
 
     private final TransactionService transactionService;
 
@@ -31,3 +32,4 @@ public class TransactionResolver {
         return transactionService.submitTransaction(input);
     }
 }
+

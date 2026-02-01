@@ -1,8 +1,12 @@
-package com.app.risk.customer;
+package com.app.risk.service;
 
 import com.app.risk.exception.NotFoundException;
+import com.app.risk.model.Customer;
+import com.app.risk.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -14,5 +18,10 @@ public class CustomerService {
         return customerRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Customer not found with id: " + id));
     }
+
+    public List<Customer> findAll() {
+        return customerRepository.findAll();
+    }
 }
+
 

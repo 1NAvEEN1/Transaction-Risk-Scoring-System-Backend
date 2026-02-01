@@ -1,6 +1,5 @@
-package com.app.risk.transaction;
+package com.app.risk.model;
 
-import com.app.risk.customer.Customer;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

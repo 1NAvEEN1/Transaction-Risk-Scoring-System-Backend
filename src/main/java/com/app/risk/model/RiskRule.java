@@ -1,4 +1,4 @@
-package com.app.risk.rule;
+package com.app.risk.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -37,7 +37,7 @@ public class RiskRule {
 
     // For MERCHANT_CATEGORY rules
     @Enumerated(EnumType.STRING)
-    private com.app.risk.transaction.MerchantCategory merchantCategory;
+    private MerchantCategory merchantCategory;
 
     // For FREQUENCY rules
     private Integer frequencyCount;

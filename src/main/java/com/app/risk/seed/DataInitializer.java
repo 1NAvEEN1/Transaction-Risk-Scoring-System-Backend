@@ -1,12 +1,9 @@
 package com.app.risk.seed;
 
-import com.app.risk.customer.Customer;
-import com.app.risk.customer.CustomerRepository;
-import com.app.risk.customer.RiskProfile;
-import com.app.risk.rule.RiskRule;
-import com.app.risk.rule.RiskRuleRepository;
-import com.app.risk.rule.RuleType;
-import com.app.risk.transaction.*;
+import com.app.risk.model.*;
+import com.app.risk.repository.CustomerRepository;
+import com.app.risk.repository.RiskRuleRepository;
+import com.app.risk.repository.TransactionRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,7 +1,8 @@
-package com.app.risk.rule;
+package com.app.risk.controller;
 
 import com.app.risk.dto.RiskRuleDTO;
 import com.app.risk.dto.RiskRuleInput;
+import com.app.risk.service.RiskRuleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -13,7 +14,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-public class RiskRuleResolver {
+public class RiskRuleController {
 
     private final RiskRuleService riskRuleService;
 

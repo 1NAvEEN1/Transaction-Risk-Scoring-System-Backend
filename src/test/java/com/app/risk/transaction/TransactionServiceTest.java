@@ -1,8 +1,5 @@
 package com.app.risk.transaction;
 
-import com.app.risk.customer.Customer;
-import com.app.risk.customer.CustomerService;
-import com.app.risk.customer.RiskProfile;
 import com.app.risk.dto.MatchedRule;
 import com.app.risk.dto.TransactionDTO;
 import com.app.risk.dto.TransactionInput;
@@ -10,9 +7,11 @@ import com.app.risk.engine.AmountThresholdEvaluator;
 import com.app.risk.engine.FrequencyEvaluator;
 import com.app.risk.engine.MerchantCategoryEvaluator;
 import com.app.risk.engine.RiskRuleEvaluator;
-import com.app.risk.rule.RiskRule;
-import com.app.risk.rule.RiskRuleService;
-import com.app.risk.rule.RuleType;
+import com.app.risk.model.*;
+import com.app.risk.repository.TransactionRepository;
+import com.app.risk.service.CustomerService;
+import com.app.risk.service.RiskRuleService;
+import com.app.risk.service.TransactionService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

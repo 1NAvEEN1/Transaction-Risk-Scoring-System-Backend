@@ -1,11 +1,11 @@
 package com.app.risk.engine;
 
-import com.app.risk.customer.Customer;
 import com.app.risk.dto.MatchedRule;
 import com.app.risk.dto.TransactionInput;
-import com.app.risk.rule.RiskRule;
-import com.app.risk.rule.RuleType;
-import com.app.risk.transaction.TransactionRepository;
+import com.app.risk.model.Customer;
+import com.app.risk.model.RiskRule;
+import com.app.risk.model.RuleType;
+import com.app.risk.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
