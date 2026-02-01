@@ -1,7 +1,7 @@
 scalar Long
 
 type Query {
-    transactions(page: Int, size: Int, status: String): TransactionPage!
+    transactions(page: Int, size: Int, status: String, searchQuery: String): TransactionPage!
     transaction(id: Long!): Transaction!
     riskRules: [RiskRule!]!
     customers: [Customer!]!
@@ -25,6 +25,7 @@ type Transaction {
     id: Long!
     customerId: Long!
     customerName: String!
+    customerEmail: String!
     amount: Float!
     currency: String!
     timestamp: String!

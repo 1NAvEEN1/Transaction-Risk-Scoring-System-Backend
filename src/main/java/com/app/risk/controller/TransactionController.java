@@ -18,8 +18,12 @@ public class TransactionController {
     private final TransactionService transactionService;
 
     @QueryMapping
-    public TransactionPage transactions(@Argument Integer page, @Argument Integer size, @Argument String status) {
-        return transactionService.getTransactions(page, size, status);
+    public TransactionPage transactions(
+            @Argument Integer page,
+            @Argument Integer size,
+            @Argument String status,
+            @Argument String searchQuery) {
+        return transactionService.getTransactions(page, size, status, searchQuery);
     }
 
     @QueryMapping

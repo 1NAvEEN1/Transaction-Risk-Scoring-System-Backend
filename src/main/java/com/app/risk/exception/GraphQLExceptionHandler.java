@@ -12,29 +12,27 @@ public class GraphQLExceptionHandler extends DataFetcherExceptionResolverAdapter
 
     @Override
     protected GraphQLError resolveToSingleError(Throwable ex, DataFetchingEnvironment env) {
-        if (ex instanceof NotFoundException) {
-            return GraphqlErrorBuilder.newError()
+        return switch (ex) {
+            case NotFoundException notFoundException -> GraphqlErrorBuilder.newError()
                     .errorType(ErrorType.NOT_FOUND)
                     .message(ex.getMessage())
                     .path(env.getExecutionStepInfo().getPath())
                     .location(env.getField().getSourceLocation())
                     .build();
-        } else if (ex instanceof BadRequestException) {
-            return GraphqlErrorBuilder.newError()
+            case BadRequestException badRequestException -> GraphqlErrorBuilder.newError()
                     .errorType(ErrorType.BAD_REQUEST)
                     .message(ex.getMessage())
                     .path(env.getExecutionStepInfo().getPath())
                     .location(env.getField().getSourceLocation())
                     .build();
-        } else if (ex instanceof IllegalArgumentException) {
-            return GraphqlErrorBuilder.newError()
+            case IllegalArgumentException illegalArgumentException -> GraphqlErrorBuilder.newError()
                     .errorType(ErrorType.BAD_REQUEST)
                     .message(ex.getMessage())
                     .path(env.getExecutionStepInfo().getPath())
                     .location(env.getField().getSourceLocation())
                     .build();
-        }
-        return null;
+            default -> null;
+        };
     }
 }
 

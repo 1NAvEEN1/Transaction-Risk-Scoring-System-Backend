@@ -38,7 +38,7 @@ public class TransactionService {
 
     private static final int FLAGGED_THRESHOLD = 70;
 
-    public TransactionPage getTransactions(Integer page, Integer size, String status) {
+    public TransactionPage getTransactions(Integer page, Integer size, String status, String searchQuery) {
         Pageable pageable = PageRequest.of(
                 page != null ? page : 0,
                 size != null ? size : 10,
@@ -46,16 +46,22 @@ public class TransactionService {
         );
 
         Page<Transaction> transactionPage;
+        TransactionStatus transactionStatus = null;
+
         if (status != null && !status.isEmpty()) {
             try {
-                TransactionStatus transactionStatus = TransactionStatus.valueOf(status);
-                transactionPage = transactionRepository.findByStatus(transactionStatus, pageable);
+                transactionStatus = TransactionStatus.valueOf(status);
             } catch (IllegalArgumentException e) {
                 throw new BadRequestException("Invalid status: " + status);
             }
-        } else {
-            transactionPage = transactionRepository.findAll(pageable);
         }
+
+        // Use the new search method that handles both status and searchQuery
+        transactionPage = transactionRepository.findByStatusAndCustomerSearch(
+            transactionStatus,
+            searchQuery,
+            pageable
+        );
 
         List<TransactionDTO> content = transactionPage.getContent().stream()
                 .map(this::toDTO)
@@ -161,6 +167,7 @@ public class TransactionService {
                 .id(transaction.getId())
                 .customerId(transaction.getCustomer().getId())
                 .customerName(transaction.getCustomer().getName())
+                .customerEmail(transaction.getCustomer().getEmail())
                 .amount(transaction.getAmount())
                 .currency(transaction.getCurrency())
                 .timestamp(transaction.getTimestamp())

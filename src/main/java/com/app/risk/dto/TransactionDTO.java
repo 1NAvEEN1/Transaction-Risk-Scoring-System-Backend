@@ -17,6 +17,7 @@ public class TransactionDTO {
     private Long id;
     private Long customerId;
     private String customerName;
+    private String customerEmail;
     private BigDecimal amount;
     private String currency;
     private LocalDateTime timestamp;
