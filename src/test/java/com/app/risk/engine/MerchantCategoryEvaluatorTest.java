@@ -74,12 +74,12 @@ class MerchantCategoryEvaluatorTest {
                 .customerId(1L)
                 .amount(new BigDecimal("1000.00"))
                 .currency("USD")
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("GAMBLING")
                 .build();
 
         // Act
-        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, gamblingRule);
+        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, gamblingRule, LocalDateTime.now());
 
         // Assert
         assertTrue(result.isPresent());
@@ -99,12 +99,12 @@ class MerchantCategoryEvaluatorTest {
                 .customerId(1L)
                 .amount(new BigDecimal("5000.00"))
                 .currency("USD")
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("CRYPTO")
                 .build();
 
         // Act
-        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, cryptoRule);
+        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, cryptoRule, LocalDateTime.now());
 
         // Assert
         assertTrue(result.isPresent());
@@ -123,12 +123,12 @@ class MerchantCategoryEvaluatorTest {
                 .customerId(1L)
                 .amount(new BigDecimal("1000.00"))
                 .currency("USD")
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("RETAIL")
                 .build();
 
         // Act
-        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, gamblingRule);
+        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, gamblingRule, LocalDateTime.now());
 
         // Assert
         assertFalse(result.isPresent());
@@ -142,7 +142,7 @@ class MerchantCategoryEvaluatorTest {
                 .customerId(1L)
                 .amount(new BigDecimal("1000.00"))
                 .currency("USD")
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("GAMBLING")
                 .build();
 
@@ -156,7 +156,7 @@ class MerchantCategoryEvaluatorTest {
                 .build();
 
         // Act
-        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, ruleWithoutCategory);
+        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, ruleWithoutCategory, LocalDateTime.now());
 
         // Assert
         assertFalse(result.isPresent());
@@ -170,12 +170,12 @@ class MerchantCategoryEvaluatorTest {
                 .customerId(1L)
                 .amount(new BigDecimal("1000.00"))
                 .currency("USD")
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("INVALID_CATEGORY")
                 .build();
 
         // Act
-        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, gamblingRule);
+        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, gamblingRule, LocalDateTime.now());
 
         // Assert
         assertFalse(result.isPresent());
@@ -189,7 +189,7 @@ class MerchantCategoryEvaluatorTest {
                 .customerId(1L)
                 .amount(new BigDecimal("500.00"))
                 .currency("USD")
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("RETAIL")
                 .build();
 
@@ -203,7 +203,7 @@ class MerchantCategoryEvaluatorTest {
                 .build();
 
         // Act
-        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, retailRule);
+        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, retailRule, LocalDateTime.now());
 
         // Assert
         assertTrue(result.isPresent());
@@ -219,7 +219,7 @@ class MerchantCategoryEvaluatorTest {
                 .customerId(1L)
                 .amount(new BigDecimal("300.00"))
                 .currency("USD")
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("OTHER")
                 .build();
 
@@ -233,7 +233,7 @@ class MerchantCategoryEvaluatorTest {
                 .build();
 
         // Act
-        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, otherRule);
+        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, otherRule, LocalDateTime.now());
 
         // Assert
         assertTrue(result.isPresent());
@@ -249,12 +249,12 @@ class MerchantCategoryEvaluatorTest {
                 .customerId(1L)
                 .amount(new BigDecimal("1000.00"))
                 .currency("USD")
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("gambling") // lowercase
                 .build();
 
         // Act
-        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, gamblingRule);
+        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, gamblingRule, LocalDateTime.now());
 
         // Assert
         assertFalse(result.isPresent()); // Should not match due to case sensitivity

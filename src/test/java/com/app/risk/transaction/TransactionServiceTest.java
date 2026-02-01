@@ -88,7 +88,7 @@ class TransactionServiceTest {
                 .customerId(1L)
                 .amount(new BigDecimal("50.00"))
                 .currency("USD")
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("RETAIL")
                 .build();
 
@@ -117,7 +117,7 @@ class TransactionServiceTest {
                 .customerId(1L)
                 .amount(new BigDecimal("12000.00"))
                 .currency("USD")
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("RETAIL")
                 .build();
 
@@ -147,7 +147,7 @@ class TransactionServiceTest {
                 .customerId(1L)
                 .amount(new BigDecimal("11000.00"))
                 .currency("USD")
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("GAMBLING")
                 .build();
 
@@ -163,7 +163,7 @@ class TransactionServiceTest {
         when(customerService.findById(1L)).thenReturn(testCustomer);
         when(riskRuleService.getActiveRules()).thenReturn(getActiveRules());
         when(frequencyEvaluator.supports(RuleType.FREQUENCY)).thenReturn(true);
-        when(frequencyEvaluator.evaluate(any(), any(), any())).thenReturn(java.util.Optional.of(frequencyMatch));
+        when(frequencyEvaluator.evaluate(any(), any(), any(), any(LocalDateTime.class))).thenReturn(java.util.Optional.of(frequencyMatch));
         when(transactionRepository.save(any(Transaction.class))).thenAnswer(invocation -> {
             Transaction t = invocation.getArgument(0);
             t.setId(3L);
@@ -187,7 +187,7 @@ class TransactionServiceTest {
                 .customerId(1L)
                 .amount(new BigDecimal("100.00"))
                 .currency("USD")
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("RETAIL")
                 .build();
 
@@ -195,7 +195,7 @@ class TransactionServiceTest {
         when(customerService.findById(1L)).thenReturn(testCustomer);
         when(riskRuleService.getActiveRules()).thenReturn(getActiveRules());
         when(frequencyEvaluator.supports(RuleType.FREQUENCY)).thenReturn(true);
-        when(frequencyEvaluator.evaluate(any(), any(), any())).thenReturn(java.util.Optional.empty());
+        when(frequencyEvaluator.evaluate(any(), any(), any(), any(LocalDateTime.class))).thenReturn(java.util.Optional.empty());
         when(transactionRepository.save(any(Transaction.class))).thenAnswer(invocation -> {
             Transaction t = invocation.getArgument(0);
             t.setId(4L);

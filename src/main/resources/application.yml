@@ -5,3 +5,6 @@ spring:
   profiles:
     active: dev
 
+  jackson:
+    time-zone: Asia/Colombo
+

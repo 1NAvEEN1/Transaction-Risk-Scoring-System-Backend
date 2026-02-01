@@ -23,7 +23,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -130,16 +131,11 @@ public class TransactionService {
                 throw new BadRequestException("Invalid merchant category: " + input.getMerchantCategory());
             }
 
-            // Parse timestamp
-            LocalDateTime timestamp;
-            try {
-                timestamp = LocalDateTime.parse(input.getTimestamp(), DateTimeFormatter.ISO_DATE_TIME);
-            } catch (Exception e) {
-                log.error("Invalid timestamp format: {}", input.getTimestamp());
-                auditLogService.logError("SUBMIT_TRANSACTION", "Transaction", null,
-                    "Invalid timestamp format", e);
-                throw new BadRequestException("Invalid timestamp format. Expected ISO_DATE_TIME format.");
-            }
+            // Get current timestamp in Sri Lanka timezone (UTC+5:30)
+            ZonedDateTime sriLankaTime = ZonedDateTime.now(ZoneId.of("Asia/Colombo"));
+            LocalDateTime timestamp = sriLankaTime.toLocalDateTime();
+
+            log.debug("Transaction timestamp set to Sri Lanka time: {}", timestamp);
 
             // Evaluate risk rules
             List<RiskRule> activeRules = riskRuleService.getActiveRules();
@@ -150,7 +146,7 @@ public class TransactionService {
             for (RiskRule rule : activeRules) {
                 for (RiskRuleEvaluator evaluator : riskRuleEvaluators) {
                     if (evaluator.supports(rule.getRuleType())) {
-                        evaluator.evaluate(input, customer, rule)
+                        evaluator.evaluate(input, customer, rule, timestamp)
                                 .ifPresent(matchedRule -> {
                                     matchedRules.add(matchedRule);
                                     log.debug("Rule matched: {} - {} points", matchedRule.getRuleName(),

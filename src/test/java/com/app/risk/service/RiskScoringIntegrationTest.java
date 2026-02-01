@@ -91,14 +91,14 @@ class RiskScoringIntegrationTest {
                 .customerId(1L)
                 .amount(new BigDecimal("50.00"))
                 .currency("USD")
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("RETAIL")
                 .build();
 
         when(customerService.findById(1L)).thenReturn(testCustomer);
         when(riskRuleService.getActiveRules()).thenReturn(getStandardRules());
         when(frequencyEvaluator.supports(RuleType.FREQUENCY)).thenReturn(true);
-        when(frequencyEvaluator.evaluate(any(), any(), any())).thenReturn(Optional.empty());
+        when(frequencyEvaluator.evaluate(any(), any(), any(), any(LocalDateTime.class))).thenReturn(Optional.empty());
         when(transactionRepository.save(any(Transaction.class))).thenAnswer(invocation -> {
             Transaction t = invocation.getArgument(0);
             t.setId(1L);
@@ -130,14 +130,14 @@ class RiskScoringIntegrationTest {
                 .customerId(1L)
                 .amount(new BigDecimal("12000.00"))
                 .currency("USD")
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("RETAIL")
                 .build();
 
         when(customerService.findById(1L)).thenReturn(testCustomer);
         when(riskRuleService.getActiveRules()).thenReturn(getStandardRules());
         when(frequencyEvaluator.supports(RuleType.FREQUENCY)).thenReturn(true);
-        when(frequencyEvaluator.evaluate(any(), any(), any())).thenReturn(Optional.empty());
+        when(frequencyEvaluator.evaluate(any(), any(), any(), any(LocalDateTime.class))).thenReturn(Optional.empty());
         when(transactionRepository.save(any(Transaction.class))).thenAnswer(invocation -> {
             Transaction t = invocation.getArgument(0);
             t.setId(2L);
@@ -164,14 +164,14 @@ class RiskScoringIntegrationTest {
                 .customerId(1L)
                 .amount(new BigDecimal("500.00"))
                 .currency("USD")
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("GAMBLING")
                 .build();
 
         when(customerService.findById(1L)).thenReturn(testCustomer);
         when(riskRuleService.getActiveRules()).thenReturn(getStandardRules());
         when(frequencyEvaluator.supports(RuleType.FREQUENCY)).thenReturn(true);
-        when(frequencyEvaluator.evaluate(any(), any(), any())).thenReturn(Optional.empty());
+        when(frequencyEvaluator.evaluate(any(), any(), any(), any(LocalDateTime.class))).thenReturn(Optional.empty());
         when(transactionRepository.save(any(Transaction.class))).thenAnswer(invocation -> {
             Transaction t = invocation.getArgument(0);
             t.setId(3L);
@@ -197,14 +197,14 @@ class RiskScoringIntegrationTest {
                 .customerId(1L)
                 .amount(new BigDecimal("12000.00"))
                 .currency("USD")
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("CRYPTO")
                 .build();
 
         when(customerService.findById(1L)).thenReturn(testCustomer);
         when(riskRuleService.getActiveRules()).thenReturn(getStandardRules());
         when(frequencyEvaluator.supports(RuleType.FREQUENCY)).thenReturn(true);
-        when(frequencyEvaluator.evaluate(any(), any(), any())).thenReturn(Optional.empty());
+        when(frequencyEvaluator.evaluate(any(), any(), any(), any(LocalDateTime.class))).thenReturn(Optional.empty());
         when(transactionRepository.save(any(Transaction.class))).thenAnswer(invocation -> {
             Transaction t = invocation.getArgument(0);
             t.setId(4L);
@@ -229,7 +229,7 @@ class RiskScoringIntegrationTest {
                 .customerId(1L)
                 .amount(new BigDecimal("11000.00"))
                 .currency("USD")
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("GAMBLING")
                 .build();
 
@@ -244,7 +244,7 @@ class RiskScoringIntegrationTest {
         when(customerService.findById(1L)).thenReturn(testCustomer);
         when(riskRuleService.getActiveRules()).thenReturn(getStandardRules());
         when(frequencyEvaluator.supports(RuleType.FREQUENCY)).thenReturn(true);
-        when(frequencyEvaluator.evaluate(any(), any(), any())).thenReturn(Optional.of(frequencyMatch));
+        when(frequencyEvaluator.evaluate(any(), any(), any(), any(LocalDateTime.class))).thenReturn(Optional.of(frequencyMatch));
         when(transactionRepository.save(any(Transaction.class))).thenAnswer(invocation -> {
             Transaction t = invocation.getArgument(0);
             t.setId(5L);
@@ -269,14 +269,14 @@ class RiskScoringIntegrationTest {
                 .customerId(1L)
                 .amount(new BigDecimal("15000.00"))
                 .currency("USD")
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("GAMBLING")
                 .build();
 
         when(customerService.findById(1L)).thenReturn(testCustomer);
         when(riskRuleService.getActiveRules()).thenReturn(getStandardRules());
         when(frequencyEvaluator.supports(RuleType.FREQUENCY)).thenReturn(true);
-        when(frequencyEvaluator.evaluate(any(), any(), any())).thenReturn(Optional.empty());
+        when(frequencyEvaluator.evaluate(any(), any(), any(), any(LocalDateTime.class))).thenReturn(Optional.empty());
         when(transactionRepository.save(any(Transaction.class))).thenAnswer(invocation -> {
             Transaction t = invocation.getArgument(0);
             t.setId(6L);
@@ -301,7 +301,7 @@ class RiskScoringIntegrationTest {
                 .customerId(1L)
                 .amount(new BigDecimal("100.00"))
                 .currency("USD")
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("INVALID")
                 .build();
 
@@ -314,23 +314,35 @@ class RiskScoringIntegrationTest {
     }
 
     @Test
-    @DisplayName("Should handle invalid timestamp format gracefully")
-    void testInvalidTimestampFormat() {
-        // Arrange
+    @DisplayName("Should accept transactions with valid input (timestamp auto-generated)")
+    void testValidTransactionWithAutoTimestamp() {
+        // Arrange - Note: no timestamp field in input
         TransactionInput input = TransactionInput.builder()
                 .customerId(1L)
                 .amount(new BigDecimal("100.00"))
                 .currency("USD")
-                .timestamp("invalid-timestamp")
                 .merchantCategory("RETAIL")
                 .build();
 
         when(customerService.findById(1L)).thenReturn(testCustomer);
-
-        // Act & Assert
-        assertThrows(BadRequestException.class, () -> {
-            transactionService.submitTransaction(input);
+        when(riskRuleService.getActiveRules()).thenReturn(List.of());
+        when(transactionRepository.save(any())).thenAnswer(inv -> {
+            Transaction t = inv.getArgument(0);
+            t.setId(10L);
+            return t;
         });
+
+        // Act
+        TransactionDTO result = transactionService.submitTransaction(input);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(10L, result.getId());
+        assertEquals(0, result.getRiskScore());
+        verify(transactionRepository).save(argThat(transaction ->
+                transaction.getTimestamp() != null && // Timestamp should be auto-generated
+                        transaction.getCustomer().equals(testCustomer)
+        ));
     }
 
     @Test
@@ -341,7 +353,7 @@ class RiskScoringIntegrationTest {
                 .customerId(1L)
                 .amount(new BigDecimal("500.00"))
                 .currency("USD")
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("GAMBLING")
                 .build();
 
@@ -356,7 +368,7 @@ class RiskScoringIntegrationTest {
         when(customerService.findById(1L)).thenReturn(testCustomer);
         when(riskRuleService.getActiveRules()).thenReturn(getStandardRules());
         when(frequencyEvaluator.supports(RuleType.FREQUENCY)).thenReturn(true);
-        when(frequencyEvaluator.evaluate(any(), any(), any())).thenReturn(Optional.of(frequencyMatch));
+        when(frequencyEvaluator.evaluate(any(), any(), any(), any(LocalDateTime.class))).thenReturn(Optional.of(frequencyMatch));
         when(transactionRepository.save(any(Transaction.class))).thenAnswer(invocation -> {
             Transaction t = invocation.getArgument(0);
             t.setId(7L);
@@ -380,7 +392,7 @@ class RiskScoringIntegrationTest {
                 .customerId(1L)
                 .amount(new BigDecimal("99999.00"))
                 .currency("USD")
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("GAMBLING")
                 .build();
 
@@ -410,7 +422,7 @@ class RiskScoringIntegrationTest {
                 .customerId(1L)
                 .amount(new BigDecimal("20000.00"))
                 .currency("USD")
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("CRYPTO")
                 .build();
 
@@ -425,7 +437,7 @@ class RiskScoringIntegrationTest {
         when(customerService.findById(1L)).thenReturn(testCustomer);
         when(riskRuleService.getActiveRules()).thenReturn(getStandardRules());
         when(frequencyEvaluator.supports(RuleType.FREQUENCY)).thenReturn(true);
-        when(frequencyEvaluator.evaluate(any(), any(), any())).thenReturn(Optional.of(frequencyMatch));
+        when(frequencyEvaluator.evaluate(any(), any(), any(), any(LocalDateTime.class))).thenReturn(Optional.of(frequencyMatch));
         when(transactionRepository.save(any(Transaction.class))).thenAnswer(invocation -> {
             Transaction t = invocation.getArgument(0);
             t.setId(9L);

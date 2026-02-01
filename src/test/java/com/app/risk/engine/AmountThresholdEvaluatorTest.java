@@ -64,12 +64,12 @@ class AmountThresholdEvaluatorTest {
                 .customerId(1L)
                 .amount(new BigDecimal("15000.00"))
                 .currency("USD")
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
+
                 .merchantCategory("RETAIL")
                 .build();
 
         // Act
-        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, testRule);
+        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, testRule, LocalDateTime.now());
 
         // Assert
         assertTrue(result.isPresent());
@@ -90,12 +90,12 @@ class AmountThresholdEvaluatorTest {
                 .customerId(1L)
                 .amount(new BigDecimal("10000.00"))
                 .currency("USD")
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("RETAIL")
                 .build();
 
         // Act
-        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, testRule);
+        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, testRule, LocalDateTime.now());
 
         // Assert
         assertFalse(result.isPresent());
@@ -109,12 +109,12 @@ class AmountThresholdEvaluatorTest {
                 .customerId(1L)
                 .amount(new BigDecimal("5000.00"))
                 .currency("USD")
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("RETAIL")
                 .build();
 
         // Act
-        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, testRule);
+        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, testRule, LocalDateTime.now());
 
         // Assert
         assertFalse(result.isPresent());
@@ -128,7 +128,7 @@ class AmountThresholdEvaluatorTest {
                 .customerId(1L)
                 .amount(new BigDecimal("15000.00"))
                 .currency("USD")
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("RETAIL")
                 .build();
 
@@ -142,7 +142,7 @@ class AmountThresholdEvaluatorTest {
                 .build();
 
         // Act
-        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, ruleWithoutThreshold);
+        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, ruleWithoutThreshold, LocalDateTime.now());
 
         // Assert
         assertFalse(result.isPresent());
@@ -156,7 +156,7 @@ class AmountThresholdEvaluatorTest {
                 .customerId(1L)
                 .amount(new BigDecimal("0.01"))
                 .currency("USD")
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("RETAIL")
                 .build();
 
@@ -170,7 +170,7 @@ class AmountThresholdEvaluatorTest {
                 .build();
 
         // Act
-        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, smallThresholdRule);
+        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, smallThresholdRule, LocalDateTime.now());
 
         // Assert
         assertFalse(result.isPresent()); // 0.01 is not greater than 0.01
@@ -184,12 +184,12 @@ class AmountThresholdEvaluatorTest {
                 .customerId(1L)
                 .amount(new BigDecimal("999999999.99"))
                 .currency("USD")
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("RETAIL")
                 .build();
 
         // Act
-        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, testRule);
+        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, testRule, LocalDateTime.now());
 
         // Assert
         assertTrue(result.isPresent());
@@ -204,12 +204,12 @@ class AmountThresholdEvaluatorTest {
                 .customerId(1L)
                 .amount(new BigDecimal("10000.01"))
                 .currency("USD")
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
+
                 .merchantCategory("RETAIL")
                 .build();
 
         // Act
-        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, testRule);
+        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, testRule, LocalDateTime.now());
 
         // Assert
         assertTrue(result.isPresent());

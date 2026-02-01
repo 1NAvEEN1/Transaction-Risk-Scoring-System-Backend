@@ -7,6 +7,7 @@ import com.app.risk.entity.RiskRule;
 import com.app.risk.entity.RuleType;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Component
@@ -18,7 +19,7 @@ public class AmountThresholdEvaluator implements RiskRuleEvaluator {
     }
 
     @Override
-    public Optional<MatchedRule> evaluate(TransactionInput input, Customer customer, RiskRule rule) {
+    public Optional<MatchedRule> evaluate(TransactionInput input, Customer customer, RiskRule rule, LocalDateTime timestamp) {
         if (rule.getAmountThreshold() == null) {
             return Optional.empty();
         }

@@ -77,7 +77,7 @@ class FrequencyEvaluatorTest {
                 .customerId(1L)
                 .amount(new BigDecimal("100.00"))
                 .currency("USD")
-                .timestamp(transactionTime.format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("RETAIL")
                 .build();
 
@@ -86,7 +86,7 @@ class FrequencyEvaluatorTest {
                 .thenReturn(4L);
 
         // Act
-        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, frequencyRule);
+        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, frequencyRule, LocalDateTime.now());
 
         // Assert
         assertTrue(result.isPresent());
@@ -109,7 +109,7 @@ class FrequencyEvaluatorTest {
                 .customerId(1L)
                 .amount(new BigDecimal("100.00"))
                 .currency("USD")
-                .timestamp(transactionTime.format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("RETAIL")
                 .build();
 
@@ -118,7 +118,7 @@ class FrequencyEvaluatorTest {
                 .thenReturn(3L);
 
         // Act
-        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, frequencyRule);
+        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, frequencyRule, LocalDateTime.now());
 
         // Assert
         assertFalse(result.isPresent()); // "more than X" means > X, not >= X
@@ -133,7 +133,7 @@ class FrequencyEvaluatorTest {
                 .customerId(1L)
                 .amount(new BigDecimal("100.00"))
                 .currency("USD")
-                .timestamp(transactionTime.format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("RETAIL")
                 .build();
 
@@ -142,7 +142,7 @@ class FrequencyEvaluatorTest {
                 .thenReturn(2L);
 
         // Act
-        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, frequencyRule);
+        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, frequencyRule, LocalDateTime.now());
 
         // Assert
         assertFalse(result.isPresent());
@@ -156,7 +156,7 @@ class FrequencyEvaluatorTest {
                 .customerId(1L)
                 .amount(new BigDecimal("100.00"))
                 .currency("USD")
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("RETAIL")
                 .build();
 
@@ -171,7 +171,7 @@ class FrequencyEvaluatorTest {
                 .build();
 
         // Act
-        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, ruleWithoutCount);
+        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, ruleWithoutCount, LocalDateTime.now());
 
         // Assert
         assertFalse(result.isPresent());
@@ -185,7 +185,7 @@ class FrequencyEvaluatorTest {
                 .customerId(1L)
                 .amount(new BigDecimal("100.00"))
                 .currency("USD")
-                .timestamp(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("RETAIL")
                 .build();
 
@@ -200,7 +200,7 @@ class FrequencyEvaluatorTest {
                 .build();
 
         // Act
-        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, ruleWithoutWindow);
+        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, ruleWithoutWindow, LocalDateTime.now());
 
         // Assert
         assertFalse(result.isPresent());
@@ -214,12 +214,12 @@ class FrequencyEvaluatorTest {
                 .customerId(1L)
                 .amount(new BigDecimal("100.00"))
                 .currency("USD")
-                .timestamp("invalid-timestamp")
+                
                 .merchantCategory("RETAIL")
                 .build();
 
         // Act
-        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, frequencyRule);
+        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, frequencyRule, LocalDateTime.now());
 
         // Assert
         assertFalse(result.isPresent());
@@ -234,7 +234,7 @@ class FrequencyEvaluatorTest {
                 .customerId(1L)
                 .amount(new BigDecimal("100.00"))
                 .currency("USD")
-                .timestamp(transactionTime.format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("RETAIL")
                 .build();
 
@@ -243,7 +243,7 @@ class FrequencyEvaluatorTest {
                 .thenReturn(0L);
 
         // Act
-        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, frequencyRule);
+        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, frequencyRule, LocalDateTime.now());
 
         // Assert
         assertFalse(result.isPresent());
@@ -258,7 +258,7 @@ class FrequencyEvaluatorTest {
                 .customerId(1L)
                 .amount(new BigDecimal("100.00"))
                 .currency("USD")
-                .timestamp(transactionTime.format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("RETAIL")
                 .build();
 
@@ -276,7 +276,7 @@ class FrequencyEvaluatorTest {
                 .thenReturn(2L);
 
         // Act
-        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, shortWindowRule);
+        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, shortWindowRule, LocalDateTime.now());
 
         // Assert
         assertTrue(result.isPresent());
@@ -293,7 +293,7 @@ class FrequencyEvaluatorTest {
                 .customerId(1L)
                 .amount(new BigDecimal("100.00"))
                 .currency("USD")
-                .timestamp(transactionTime.format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("RETAIL")
                 .build();
 
@@ -311,7 +311,7 @@ class FrequencyEvaluatorTest {
                 .thenReturn(51L);
 
         // Act
-        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, longWindowRule);
+        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, longWindowRule, LocalDateTime.now());
 
         // Assert
         assertTrue(result.isPresent());
@@ -328,7 +328,7 @@ class FrequencyEvaluatorTest {
                 .customerId(1L)
                 .amount(new BigDecimal("100.00"))
                 .currency("USD")
-                .timestamp(transactionTime.format(DateTimeFormatter.ISO_DATE_TIME))
+                
                 .merchantCategory("RETAIL")
                 .build();
 
@@ -346,7 +346,7 @@ class FrequencyEvaluatorTest {
                 .thenReturn(101L);
 
         // Act
-        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, highFrequencyRule);
+        Optional<MatchedRule> result = evaluator.evaluate(input, testCustomer, highFrequencyRule, LocalDateTime.now());
 
         // Assert
         assertTrue(result.isPresent());

@@ -59,7 +59,6 @@ input TransactionInput {
     customerId: Long!
     amount: Float!
     currency: String!
-    timestamp: String!
     merchantCategory: String!
 }
 

@@ -26,8 +26,6 @@ public class TransactionInput {
     @NotBlank
     private String currency;
 
-    @NotBlank
-    private String timestamp;
 
     @NotBlank
     private String merchantCategory;
