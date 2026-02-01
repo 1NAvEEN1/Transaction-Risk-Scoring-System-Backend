@@ -1,26 +1,29 @@
+scalar Long
+
 type Query {
     transactions(page: Int, size: Int, status: String): TransactionPage!
-    transaction(id: ID!): Transaction!
+    transaction(id: Long!): Transaction!
     riskRules: [RiskRule!]!
+    customers: [Customer!]!
 }
 
 type Mutation {
     submitTransaction(input: TransactionInput!): Transaction!
     createRiskRule(input: RiskRuleInput!): RiskRule!
-    updateRiskRule(id: ID!, input: RiskRuleInput!): RiskRule!
+    updateRiskRule(id: Long!, input: RiskRuleInput!): RiskRule!
 }
 
 type TransactionPage {
     content: [Transaction]
     page: Int!
     size: Int!
-    totalElements: Int!
+    totalElements: Long!
     totalPages: Int!
 }
 
 type Transaction {
-    id: ID!
-    customerId: ID!
+    id: Long!
+    customerId: Long!
     customerName: String!
     amount: Float!
     currency: String!
@@ -32,7 +35,7 @@ type Transaction {
 }
 
 type MatchedRule {
-    ruleId: ID!
+    ruleId: Long!
     ruleName: String!
     ruleType: String!
     points: Int!
@@ -40,7 +43,7 @@ type MatchedRule {
 }
 
 type RiskRule {
-    id: ID!
+    id: Long!
     ruleName: String!
     ruleType: String!
     amountThreshold: Float
@@ -52,7 +55,7 @@ type RiskRule {
 }
 
 input TransactionInput {
-    customerId: ID!
+    customerId: Long!
     amount: Float!
     currency: String!
     timestamp: String!
@@ -70,3 +73,10 @@ input RiskRuleInput {
     active: Boolean!
 }
 
+type Customer {
+    id: Long!
+    name: String!
+    email: String!
+    riskProfile: String!
+    country: String!
+}
