@@ -191,8 +191,6 @@ class TransactionServiceTest {
         when(riskRuleService.getActiveRules()).thenReturn(getActiveRules());
         when(frequencyEvaluator.supports(RuleType.FREQUENCY)).thenReturn(true);
         when(frequencyEvaluator.evaluate(any(), any(), any())).thenReturn(java.util.Optional.empty());
-        when(transactionRepository.countByCustomerIdAndTimestampAfter(anyLong(), any()))
-                .thenReturn(3L); // Exactly at threshold
         when(transactionRepository.save(any(Transaction.class))).thenAnswer(invocation -> {
             Transaction t = invocation.getArgument(0);
             t.setId(4L);
