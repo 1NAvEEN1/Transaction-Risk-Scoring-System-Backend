@@ -1,7 +1,7 @@
 package com.app.risk.service;
 
 import com.app.risk.exception.NotFoundException;
-import com.app.risk.model.Customer;
+import com.app.risk.entity.Customer;
 import com.app.risk.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

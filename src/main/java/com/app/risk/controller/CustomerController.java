@@ -1,6 +1,6 @@
 package com.app.risk.controller;
 
-import com.app.risk.model.Customer;
+import com.app.risk.entity.Customer;
 import com.app.risk.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.QueryMapping;

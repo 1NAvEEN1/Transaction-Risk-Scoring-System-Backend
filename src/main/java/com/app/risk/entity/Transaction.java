@@ -1,4 +1,4 @@
-package com.app.risk.model;
+package com.app.risk.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

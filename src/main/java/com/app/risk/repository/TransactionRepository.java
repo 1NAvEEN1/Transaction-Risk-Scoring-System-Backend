@@ -1,7 +1,7 @@
 package com.app.risk.repository;
 
-import com.app.risk.model.Transaction;
-import com.app.risk.model.TransactionStatus;
+import com.app.risk.entity.Transaction;
+import com.app.risk.entity.TransactionStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

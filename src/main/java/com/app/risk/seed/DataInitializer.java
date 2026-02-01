@@ -1,6 +1,6 @@
 package com.app.risk.seed;
 
-import com.app.risk.model.*;
+import com.app.risk.entity.*;
 import com.app.risk.repository.CustomerRepository;
 import com.app.risk.repository.RiskRuleRepository;
 import com.app.risk.repository.TransactionRepository;

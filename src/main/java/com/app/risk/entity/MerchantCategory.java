@@ -1,4 +1,4 @@
-package com.app.risk.model;
+package com.app.risk.entity;
 
 public enum MerchantCategory {
     RETAIL,

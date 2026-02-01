@@ -1,6 +1,6 @@
 package com.app.risk.repository;
 
-import com.app.risk.model.RiskRule;
+import com.app.risk.entity.RiskRule;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

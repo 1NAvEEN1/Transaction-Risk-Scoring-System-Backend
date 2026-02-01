@@ -2,10 +2,10 @@ package com.app.risk.engine;
 
 import com.app.risk.dto.MatchedRule;
 import com.app.risk.dto.TransactionInput;
-import com.app.risk.model.Customer;
-import com.app.risk.model.MerchantCategory;
-import com.app.risk.model.RiskRule;
-import com.app.risk.model.RuleType;
+import com.app.risk.entity.Customer;
+import com.app.risk.entity.MerchantCategory;
+import com.app.risk.entity.RiskRule;
+import com.app.risk.entity.RuleType;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;

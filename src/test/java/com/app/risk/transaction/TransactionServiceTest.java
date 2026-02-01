@@ -7,7 +7,7 @@ import com.app.risk.engine.AmountThresholdEvaluator;
 import com.app.risk.engine.FrequencyEvaluator;
 import com.app.risk.engine.MerchantCategoryEvaluator;
 import com.app.risk.engine.RiskRuleEvaluator;
-import com.app.risk.model.*;
+import com.app.risk.entity.*;
 import com.app.risk.repository.TransactionRepository;
 import com.app.risk.service.CustomerService;
 import com.app.risk.service.RiskRuleService;
