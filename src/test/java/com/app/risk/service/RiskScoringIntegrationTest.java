@@ -1,5 +1,6 @@
 package com.app.risk.service;
 
+import com.app.risk.audit.AuditLogService;
 import com.app.risk.dto.MatchedRule;
 import com.app.risk.dto.TransactionDTO;
 import com.app.risk.dto.TransactionInput;
@@ -47,6 +48,9 @@ class RiskScoringIntegrationTest {
     @Mock
     private FrequencyEvaluator frequencyEvaluator;
 
+    @Mock
+    private AuditLogService auditLogService;
+
     private TransactionService transactionService;
     private ObjectMapper objectMapper;
     private Customer testCustomer;
@@ -66,7 +70,8 @@ class RiskScoringIntegrationTest {
                 customerService,
                 riskRuleService,
                 evaluators,
-                objectMapper
+                objectMapper,
+                auditLogService
         );
 
         testCustomer = Customer.builder()
